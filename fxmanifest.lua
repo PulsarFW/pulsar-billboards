@@ -5,7 +5,7 @@ client_script("@pulsar-core/exports/cl_error.lua")
 client_script("@pulsar-pwnzor/client/check.lua")
 
 author("Dr Nick")
-version("1.0.0")
+version "1.0.1"
 url("https://www.mythicrp.com")
 
 client_scripts({
