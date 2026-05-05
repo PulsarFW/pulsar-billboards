@@ -12,18 +12,14 @@ jobs:
   create-release:
     runs-on: ubuntu-latest
     steps:
-      - name: Install zip
-        run: sudo apt install zip
-
       - name: Get latest code
         uses: actions/checkout@v4
 
       - name: Bundle files
         run: |
-          mkdir -p ./temp/pulsar-billboards
-          cp ./{README.md,fxmanifest.lua} ./temp/pulsar-billboards
-          cp -r ./{client,server,shared} ./temp/pulsar-billboards
-          cd ./temp && zip -r ../pulsar-billboards.zip ./pulsar-billboards
+          mkdir -p staging/pulsar-billboards
+          rsync -a --exclude='.github' --exclude='node_modules' --exclude='staging' . staging/pulsar-billboards/
+          cd staging && zip -r ../pulsar-billboards.zip pulsar-billboards/
 
       - name: Create release
         uses: softprops/action-gh-release@v2
