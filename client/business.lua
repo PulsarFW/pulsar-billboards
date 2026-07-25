@@ -8,16 +8,16 @@ function GetNewTVLink(id)
     end
 
     linkPromise = promise.new()
-    exports['pulsar-hud']:InputShow("Set Link", "Allowed URLS: Imgur, ImgBB, Postimages, Fivemanage", {
-        {
-            id = "name",
-            type = "text",
-            options = {
+    plsr.Input:Show("TVs", "URL - Imgur Only (i.imgur.com/example.png)", {
+		{
+			id = "name",
+			type = "text",
+			options = {
                 helperText = string.format("Leave Blank to Reset - Resolution: %s x %s", width, height),
-                inputProps = {},
-            },
-        },
-    }, "Billboards:Client:RecieveTVLinkInput", {})
+				inputProps = {},
+			},
+		},
+	}, "Billboards:Client:RecieveTVLinkInput", {})
 
     return Citizen.Await(linkPromise)
 end
@@ -29,19 +29,19 @@ AddEventHandler("Billboards:Client:RecieveTVLinkInput", function(values)
     end
 end)
 
-AddEventHandler("Billboards:Client:SetLink", function(data)
+AddEventHandler("Billboards:Client:SetLink", function(e, data)
     local tvLink = GetNewTVLink(data.id)
-    exports["pulsar-core"]:ServerCallback("Billboards:UpdateURL", {
+    plsr.Callbacks:ServerCallback("Billboards:UpdateURL", {
         id = data.id,
         link = tvLink
     }, function(success, invalidUrl)
         if success then
-            exports["pulsar-hud"]:Notification("success", "Updated Link!", 5000)
+            plsr.Notification:Success("Updated Link!", 5000)
         else
             if invalidUrl then
-                exports["pulsar-hud"]:Notification("error", "Invalid URL - Check the image host/url", 5000)
+                plsr.Notification:Error("Invalid URL - Imgur Links Only", 5000)
             else
-                exports["pulsar-hud"]:Notification("error", "Unable to Update Link", 5000)
+                plsr.Notification:Error("Error", 5000)
             end
         end
     end)

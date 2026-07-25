@@ -6,12 +6,18 @@
 
 # PULSAR-BILLBOARDS
 
-### Dynamic in-world billboard advertising via DUI
+### In-world advertising screens — browser-rendered (DUI) billboards businesses can buy
 
 <br/>
 
 ![Lua](https://img.shields.io/badge/Lua_5.4-2C2D72?style=flat-square&logo=lua&logoColor=white)
 ![FiveM](https://img.shields.io/badge/FiveM-F40552?style=flat-square)
+
+<br/>
+
+<sub>Enjoy the framework? A coffee helps keep active development, hardening, and support going.</sub>
+
+<a href="https://buymeacoffee.com/pulsarframework"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 50px !important;width: 180px !important;" /></a>
 
 <br/>
 
@@ -23,14 +29,14 @@
 
 ## Overview
 
-Dynamic billboard system for Pulsar Framework. Renders live web content onto in-world billboards using DUI. Businesses can purchase billboard slots and display custom content that updates in real time for all players.
+Registers `plsr.Billboards`. Each billboard is a DUI (in-world browser texture) rendering a URL onto a static model — `client/dui.lua` manages the DUI lifecycle, `client/business.lua` covers the business-facing side (renting/setting content).
 
 ---
 
 ## Dependencies
 
-- `pulsar-core` — framework core
-- `pulsar-businesses` — business ownership for ad slot purchasing
+- `pulsar_core` — framework core
+- `pulsar_pwnzor` — anti-cheat check loaded alongside every resource
 
 ---
 

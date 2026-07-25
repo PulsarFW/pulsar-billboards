@@ -1,18 +1,10 @@
-AddEventHandler('onClientResourceStart', function(resource)
-	if resource == GetCurrentResourceName() then
-		Wait(1000)
-		-- print('testing biatch')
-		-- local dui = CreateBillboardDUI('https://i.imgur.com/Zlf40QZ.png', 1024, 512)
-		-- AddReplaceTexture('ch2_03b_cg2_03b_bb', 'ch2_03b_bb_lowdown', dui.dictionary, dui.texture)
-
-		-- Wait(10000)
-
-		-- print(dui.id)
-
-		-- ReleaseBillboardDUI(dui.id)
-		-- RemoveReplaceTexture('ch2_03b_cg2_03b_bb', 'ch2_03b_bb_lowdown')
-		StartUp()
-	end
+-- Nothing in this file actually touches a fetched component (the old RetrieveComponents list
+-- below was 25 names, none referenced anywhere in this resource) — StartUp() only reads
+-- _billboardConfig (this resource's own shared config) and GlobalState, so it doesn't need to
+-- wait on plsr at all. CreateThread alone gives the same "run exactly once at resource start"
+-- guarantee the old Core:Shared:Ready+RequestDependencies dance was providing.
+CreateThread(function()
+	StartUp()
 end)
 
 local started = false
@@ -34,9 +26,9 @@ AddEventHandler("Characters:Client:Spawn", function()
 	CreateThread(function()
 		Wait(5000)
 
-		while LocalPlayer.state.loggedIn do
+		while plsr.State.flags.loggedIn do
 			for k, v in pairs(_billboardConfig) do
-				local dist = #(GetEntityCoords(LocalPlayer.state.ped) - v.coords)
+				local dist = #(GetEntityCoords(PlayerPedId()) - v.coords)
 				if dist <= v.range then
 					if not _billboardDUIs[k] and v.url then
 						local createdDui = CreateBillboardDUI(v.url, v.width, v.height)

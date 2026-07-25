@@ -1,22 +1,24 @@
-fx_version("cerulean")
-games({ "gta5" })
-lua54("yes")
-client_script("@pulsar-core/exports/cl_error.lua")
-client_script("@pulsar-pwnzor/client/check.lua")
+fx_version 'cerulean'
+games { 'gta5' }
 
-author("Dr Nick")
-version "1.0.1"
-url("https://www.mythicrp.com")
+name 'Pulsar Billboards'
+description 'In-world advertising screens'
+author 'Artmines - maintained for Pulsar Framework'
+url 'https://pulsarframe.work'
+version 'v1.0.0'
 
-client_scripts({
-  "client/**/*.lua",
-})
+client_script '@pulsar_core/components/cl_error.lua'
+shared_script '@pulsar_core/core/sh_pulsar.lua'
+client_script '@pulsar_pwnzor/client/check.lua'
 
 server_scripts({
-  "@oxmysql/lib/MySQL.lua",
-  "server/**/*.lua",
+	'shared/**/*.lua',
+	'server/**/*.lua',
 })
 
-shared_scripts({
-  "shared/**/*.lua",
+client_scripts({
+	'shared/**/*.lua',
+	'client/**/*.lua',
 })
+
+lua54 'yes'
